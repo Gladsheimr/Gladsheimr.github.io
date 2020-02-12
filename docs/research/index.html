@@ -4,19 +4,19 @@
 <head>
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Introduction"><meta property="og:title" content="Introduction" />
+<meta name="description" content="Research"><meta property="og:title" content="Research" />
 <meta property="og:description" content="" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="/docs/research/" />
 
-<title>Introduction | Glaðsheimr</title>
+<title>Research | Glaðsheimr</title>
 <link rel="icon" href="/favicon.png" type="image/x-icon">
 
 
 <link rel="stylesheet" href="/book.min.66d2f6926159dd697150bdcd901eead56a7adc9408513ccb9ab553939262dd4c.css" integrity="sha256-ZtL2kmFZ3WlxUL3NkB7q1Wp63JQIUTzLmrVTk5Ji3Uw=">
 
 
-<script defer src="/en.search.min.eef5c4fc70f486c56fb716e4e341fb9c23bd7aa1a8ec7452ebee9d893c977c7f.js" integrity="sha256-7vXE/HD0hsVvtxbk40H7nCO9eqGo7HRS6&#43;6diTyXfH8="></script>
+<script defer src="/en.search.min.93bc7918c5804ba3b162005a56b1a9ec792ab9330618a84f5754c2b1320df08f.js" integrity="sha256-k7x5GMWAS6OxYgBaVrGp7HkquTMGGKhPV1TCsTIN8I8="></script>
 
 <link rel="alternate" type="application/rss+xml" href="/docs/research/index.xml" title="Glaðsheimr" />
 <!--
@@ -77,7 +77,7 @@ https://github.com/alex-shpak/hugo-book
     <img src="/svg/menu.svg" class="book-icon" alt="Menu" />
   </label>
 
-  <strong>Introduction</strong>
+  <strong>Research</strong>
 
   <label for="toc-control">
     <img src="/svg/toc.svg" class="book-icon" alt="Table of Contents" />
@@ -99,6 +99,7 @@ https://github.com/alex-shpak/hugo-book
             <li><a href="#back-to-the-drawing-board">Back to the Drawing Board</a></li>
           </ul>
         </li>
+        <li><a href="#endpoint-cloud">Endpoint Cloud</a></li>
       </ul>
     </li>
   </ul>
@@ -151,12 +152,61 @@ are requiring extra steps to provide a lack luster solution (mobile health apps 
 </ol>
 <h3 id="back-to-the-drawing-board">Back to the Drawing Board</h3>
 <p>Focusing on the goal &ldquo;Making Alice Healthy&rdquo; we can start to re-engineer a concrete solution. For the purpose of this exercise let&rsquo;s
-determine health based on most common diseases for Alice&rsquo;s cohort (24F, High BMI, Hyperglycimia). Although Health could be defined medically,
+determine health based on most common diseases for Alice&rsquo;s cohort (54F, High BMI, Hyperglycimia). Although Health could be defined medically,
 we also have to consider how Alice determines healthy and thus focusing on quality of life makes more sense. Alice&rsquo;s overall lifestyles
 plays a larger part in determining what Health means.</p>
-<p>Top causes of loss of quality of life for Alice&rsquo;s cohort
-are cardiovascular diseases and diabetes.</p>
-<p><em>Measuring Health with Biological Signals</em></p>
+<p>Let&rsquo;s say that top causes of loss of quality of life for Alice&rsquo;s cohort
+are metabolic syndrome<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup> (which wouldn&rsquo;t be too unreasonable).
+Digesting these diseases into biological signals would provided the most efficient interface
+to measuring success of our complete stack application.</p>
+<p><em>Measuring with Biological Signals</em></p>
+<ol>
+<li>Waist Circumference</li>
+<li>Triglycerides</li>
+<li>HDL Cholesterol</li>
+<li>Blood Pressure</li>
+<li>Fasting Glucose</li>
+</ol>
+<p>Using these signals gives a clearer picture of &ldquo;health&rdquo;, and treating these as outputs from &ldquo;Alice&rsquo;s Biology&rdquo; is a good starting point. The most frequent signal used is Waist Circumference which should be simple to collected in the morning when Alice wakes up. Waist circumference can be measured in the bathroom and to meet privacy concerns with a disconnected smart device (this device would not connect to any server).</p>
+<p>The waist circumference measurements (with measurement errors) would then be collected to a device that is able to aggregate with other signals (either from external sources or locally). In the case of Alice, let&rsquo;s imagine the solution to have:</p>
+<ol>
+<li>Waister: Waist Circumference - FPGAs + Camera in washroom</li>
+<li>GoodFood: Food Quality - FPGAs + Cameras in Kitchen</li>
+<li>TooManyCooks: Cooking Frequency - Presence detection TinyML Device</li>
+<li>AliceHealth: Labeling and Data Update - Mobile App</li>
+</ol>
+<p>Each of these services can be put into a local cloud or more apt endpoint cloud.</p>
+<h2 id="endpoint-cloud">Endpoint Cloud</h2>
+
+
+<p class="mermaid">
+graph TD
+  A[Alice] -->|Labels| B(Alice Health App)
+  B --> R{should retrain ?}
+  R --> C(Training Device)
+  C -->|Deploys| D[TooManyCooks]
+  C -->|Deploys| E[Waister]
+  C -->|Deploys| F[GoodFood]
+  D -->|Presence Detected in Kitchen| F[Signal Aggregrator]
+  E -->|Waist Circumference Measurement| F
+  F -->|Low Power Bluetooth Collection| B
+</p>
+
+<p>In this scenario locality of computation, modelling and data is kept to where Alice is and where her health matters. Developing such an application requires a few underlying components:</p>
+<ol>
+<li>Signal Aggregator - Arudino BLE</li>
+<li>Training Device - Raspberry Pi or Coral Device</li>
+</ol>
+<p>These components need to part of the orchestration fabric. The major advantages to this step is the fewest number of integrations back to a central server that is out of control/hand for Alice. Additionally, in this complete stack the focus is completely relevant to specific biological signals that don&rsquo;t require integration with other partners. Finally, Alice has complete control of her data and models that are used to help her. Everything is owned by her.</p>
+<p>In the next chapter we will explore developing this usecase.</p>
+<section class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1" role="doc-endnote">
+<p><a href="https://www.mayoclinic.org/diseases-conditions/metabolic-syndrome/symptoms-causes/syc-20351916">https://www.mayoclinic.org/diseases-conditions/metabolic-syndrome/symptoms-causes/syc-20351916</a> <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</section>
 </article>
  
 
@@ -168,9 +218,9 @@ are cardiovascular diseases and diabetes.</p>
 
   <div>
     
-    <a class="flex align-center" href="https://github.com/Gladsheimr/docs/commit/c685f71d14d1ec761d302b23686a51b13c82afff" title='Last modified by Kartik Thakore | Feb 11, 2020' target="_blank" rel="noopener">
+    <a class="flex align-center" href="https://github.com/Gladsheimr/docs/commit/f84bf03fb6be0dcf041b10aaa5d451b766680db9" title='Last modified by Kartik Thakore | Feb 12, 2020' target="_blank" rel="noopener">
       <img src="/svg/calendar.svg" class="book-icon" alt="Calendar" />
-      <span>Feb 11, 2020</span>
+      <span>Feb 12, 2020</span>
     </a>
   </div>
 
@@ -210,6 +260,7 @@ are cardiovascular diseases and diabetes.</p>
             <li><a href="#back-to-the-drawing-board">Back to the Drawing Board</a></li>
           </ul>
         </li>
+        <li><a href="#endpoint-cloud">Endpoint Cloud</a></li>
       </ul>
     </li>
   </ul>
