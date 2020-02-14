@@ -17,7 +17,7 @@
 <link rel="stylesheet" href="/book.min.66d2f6926159dd697150bdcd901eead56a7adc9408513ccb9ab553939262dd4c.css" integrity="sha256-ZtL2kmFZ3WlxUL3NkB7q1Wp63JQIUTzLmrVTk5Ji3Uw=">
 
 
-<script defer src="/en.search.min.31482be5954e9c9743684bd8adff706f6bf21ec1ed9da587c8d1f4d5c2ef826c.js" integrity="sha256-MUgr5ZVOnJdDaEvYrf9wb2vyHsHtnaWHyNH01cLvgmw="></script>
+<script defer src="/en.search.min.02e18a20177d728530469ff9336d221d2ddcfdeb75ced80d4aa571619954acbc.js" integrity="sha256-AuGKIBd9coUwRp/5M20iHS3c/et1ztgNSqVxYZlUrLw="></script>
 
 <link rel="alternate" type="application/rss+xml" href="/index.xml" title="Glaðsheimr" />
 <!--
@@ -51,8 +51,24 @@ https://github.com/alex-shpak/hugo-book
 
 
   <ul>
-<li><a href="/"class=active>Overview</a></li>
-<li><a href="/docs/research/">Research</a></li>
+<li>
+<p><a href="/"class=active>Overview</a></p>
+</li>
+<li>
+<p><a href="/docs/research/">Research</a></p>
+</li>
+<li>
+<p>Code</p>
+<ul>
+<li><a href="https://github.com/Gladsheimr/mjolnir">Mjolnir: Ochestration Framework</a></li>
+</ul>
+</li>
+<li>
+<p>Proof Of Concepts</p>
+<ul>
+<li><a href="/docs/proof_of_concepts/vant/">Vant</a></li>
+</ul>
+</li>
 </ul>
 
 
@@ -92,9 +108,11 @@ https://github.com/alex-shpak/hugo-book
       
   <nav id="TableOfContents">
   <ul>
-    <li><a href="#glaðsheimr">Glaðsheimr</a>
+    <li><a href="#glaðsheimr">Glaðsheimr</a></li>
+    <li><a href="#vision">Vision</a>
       <ul>
-        <li><a href="#orchestration-for-devices">Orchestration for Devices</a></li>
+        <li><a href="#dev-tooling-goals-orchestration">Dev Tooling Goals: Orchestration</a></li>
+        <li><a href="#proof-of-concepts">Proof Of Concepts</a></li>
       </ul>
     </li>
   </ul>
@@ -131,10 +149,23 @@ The men who have fallen in fight.</em></p>
   
 </div>
 
-<h2 id="orchestration-for-devices">Orchestration for Devices</h2>
-<p>Glaðsheimr is an open project to explore orchestration of complete stack applications on endpoint clouds.
-Orchestration allows building applications that are self contained and resilient as clouds that run close to their data
-and application in the real world.</p>
+<h1 id="vision">Vision</h1>
+<p>Glaðsheimr is an open project to research building complete applications that are capable of providing true privacy and transparency to end users. <a href="/docs/research/">Research</a> is focused on developing use cases and employing technologies such as (TinyML)[https://tinymlsummit.org/], FGPAs and concepts of orchestration. Glaðsheimr will also be develop tooling (<a href="https://github.com/Gladsheimr/mjolnir">Mjolnir</a>) to allow application developers to design, build and orchestrate applications.</p>
+<h2 id="dev-tooling-goals-orchestration">Dev Tooling Goals: Orchestration</h2>
+<p>Orchestration is the automatic process of managing or scheduling the work of individual components (models, sensors, frontend)
+within multiple devices. Orchestration automates such things as configuration, availability, provisioning and health monitoring of the application.</p>
+<p>Orchestration is a common concept in web development (with projects such as <a href="https://kubernetes.io/">Kubernetes</a>) although the scope for orchestration in <a href="https://github.com/Gladsheimr/mjolnir">Mjolnir</a>.</p>
+<h2 id="proof-of-concepts">Proof Of Concepts</h2>
+<ol>
+<li>Vant: Does your water intake increases morning energy?
+<ol>
+<li>Water tracking: Audio signals based on poured water</li>
+<li>Person energy: Time spent in bed tracked with human presence or sleep tracking</li>
+<li>Integration using only bluetooth mesh protocols</li>
+</ol>
+</li>
+<li>Another concept is built around exploring metabolic syndrome</li>
+</ol>
 </article>
  
 
@@ -146,9 +177,9 @@ and application in the real world.</p>
 
   <div>
     
-    <a class="flex align-center" href="https://github.com/Gladsheimr/docs/commit/f84bf03fb6be0dcf041b10aaa5d451b766680db9" title='Last modified by Kartik Thakore | Feb 12, 2020' target="_blank" rel="noopener">
+    <a class="flex align-center" href="https://github.com/Gladsheimr/docs/commit/831627c96051f5fbff44722773d97c0286b0073d" title='Last modified by Kartik Thakore | Feb 13, 2020' target="_blank" rel="noopener">
       <img src="/svg/calendar.svg" class="book-icon" alt="Calendar" />
-      <span>Feb 12, 2020</span>
+      <span>Feb 13, 2020</span>
     </a>
   </div>
 
@@ -180,9 +211,11 @@ and application in the real world.</p>
       
   <nav id="TableOfContents">
   <ul>
-    <li><a href="#glaðsheimr">Glaðsheimr</a>
+    <li><a href="#glaðsheimr">Glaðsheimr</a></li>
+    <li><a href="#vision">Vision</a>
       <ul>
-        <li><a href="#orchestration-for-devices">Orchestration for Devices</a></li>
+        <li><a href="#dev-tooling-goals-orchestration">Dev Tooling Goals: Orchestration</a></li>
+        <li><a href="#proof-of-concepts">Proof Of Concepts</a></li>
       </ul>
     </li>
   </ul>
