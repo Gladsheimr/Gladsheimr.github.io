@@ -19,5 +19,17 @@
       <description></description>
     </item>
     
+    <item>
+      <title>Orchestration</title>
+      <link>/docs/research/orchestration/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/docs/research/orchestration/</guid>
+      <description>Hybrid Device Applications The ability to leverage FPGA, Microcontrollers and ASIC devices is that TinyML application can take advantage of each devices&amp;rsquo; specialties.
+FPGAs can provide low latency (&amp;lt;= 1ms), amazing connectivity (direct pin access) and potential low power consumption depending on the application. One the other hand micro-controller significantly reduce engineering time. (See other advantages of other device types).
+Concept Predicting water pouring in a room
+Collecting audio and classification can be currently done using TinyML and PDM devices (Tensorflow Lite Micro).</description>
+    </item>
+    
   </channel>
 </rss>

@@ -16,7 +16,7 @@
 <link rel="stylesheet" href="/book.min.66d2f6926159dd697150bdcd901eead56a7adc9408513ccb9ab553939262dd4c.css" integrity="sha256-ZtL2kmFZ3WlxUL3NkB7q1Wp63JQIUTzLmrVTk5Ji3Uw=">
 
 
-<script defer src="/en.search.min.06a154e42b0e9cb73a480414c7f567d5ad61b1751110254f18a5dec94e8b7665.js" integrity="sha256-BqFU5CsOnLc6SAQUx/Vn1a1hsXURECVPGKXeyU6LdmU="></script>
+<script defer src="/en.search.min.cd915cf1ac64101fc11b7f390cc6925abd6967d96dd9cdc10bd6c3a9a3a60863.js" integrity="sha256-zZFc8axkEB/BG385DMaSWr1pZ9lt2c3BC9bDqaOmCGM="></script>
 
 <link rel="alternate" type="application/rss+xml" href="/docs/research/index.xml" title="Glaðsheimr" />
 <!--
@@ -55,6 +55,9 @@ https://github.com/alex-shpak/hugo-book
 </li>
 <li>
 <p><a href="/docs/research/"class=active>Research</a></p>
+<ul>
+<li><a href="/docs/research/orchestration/">Orchestration</a></li>
+</ul>
 </li>
 <li>
 <p>Tooling</p>
@@ -116,6 +119,7 @@ https://github.com/alex-shpak/hugo-book
           </ul>
         </li>
         <li><a href="#endpoint-cloud">Endpoint Cloud</a></li>
+        <li><a href="#next-steps">Next Steps</a></li>
       </ul>
     </li>
   </ul>
@@ -216,7 +220,32 @@ graph TD
 <li>Training Device - Raspberry Pi or Coral Device</li>
 </ol>
 <p>These components need to part of the orchestration fabric. The major advantages to this step is the fewest number of integrations back to a central server that is out of control/hand for Alice. Additionally, in this complete stack the focus is completely relevant to specific biological signals that don&rsquo;t require integration with other partners. Finally, Alice has complete control of her data and models that are used to help her. Everything is owned by her.</p>
-<p>In the next chapter we will explore developing this usecase.</p>
+<h2 id="next-steps">Next Steps</h2>
+<ol>
+<li>
+<p>Deploy a hybrid application to multiple devices</p>
+<ol>
+<li>Use <a href="https://github.com/Gladsheimr/mjolnir"><code>mjl</code></a> to config/deploy/monitor an application</li>
+</ol>
+</li>
+<li>
+<p><a href="/docs/research/orchestration/">Orchestration</a> of applications (horizontal/vertical)</p>
+<ol>
+<li>FPGAs
+<ol>
+<li>Same application over multiple FPGAs</li>
+<li>One application over several FPGAs</li>
+<li>Clustered services over FPGA</li>
+</ol>
+</li>
+<li>Micro-controller driver orchestration
+<ol>
+<li>Data extraction and transmission for services</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
 <section class="footnotes" role="doc-endnotes">
 <hr>
 <ol>
@@ -236,9 +265,9 @@ graph TD
 
   <div>
     
-    <a class="flex align-center" href="https://github.com/Gladsheimr/docs/commit/5e646db11fab7d2498e8b3338331e7d6f25f1d10" title='Last modified by Kartik Thakore | Feb 12, 2020' target="_blank" rel="noopener">
+    <a class="flex align-center" href="https://github.com/Gladsheimr/docs/commit/53c9c5f9e7742964b115f234723edcaa6a143009" title='Last modified by Kartik Thakore | Feb 20, 2020' target="_blank" rel="noopener">
       <img src="/svg/calendar.svg" class="book-icon" alt="Calendar" />
-      <span>Feb 12, 2020</span>
+      <span>Feb 20, 2020</span>
     </a>
   </div>
 
@@ -279,6 +308,7 @@ graph TD
           </ul>
         </li>
         <li><a href="#endpoint-cloud">Endpoint Cloud</a></li>
+        <li><a href="#next-steps">Next Steps</a></li>
       </ul>
     </li>
   </ul>

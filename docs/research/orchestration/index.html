@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Orchestration"><meta property="og:title" content="Orchestration" />
+<meta property="og:description" content="Hybrid Device Applications The ability to leverage FPGA, Microcontrollers and ASIC devices is that TinyML application can take advantage of each devices&rsquo; specialties.
+FPGAs can provide low latency (&lt;= 1ms), amazing connectivity (direct pin access) and potential low power consumption depending on the application. One the other hand micro-controller significantly reduce engineering time. (See other advantages of other device types).
+Concept Predicting water pouring in a room
+Collecting audio and classification can be currently done using TinyML and PDM devices (Tensorflow Lite Micro)." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/docs/research/orchestration/" />
+<meta property="article:modified_time" content="2020-02-22T12:38:20-08:00" />
+<title>Orchestration | Glaðsheimr</title>
+<link rel="icon" href="/favicon.png" type="image/x-icon">
+
+
+<link rel="stylesheet" href="/book.min.66d2f6926159dd697150bdcd901eead56a7adc9408513ccb9ab553939262dd4c.css" integrity="sha256-ZtL2kmFZ3WlxUL3NkB7q1Wp63JQIUTzLmrVTk5Ji3Uw=">
+
+
+<script defer src="/en.search.min.cd915cf1ac64101fc11b7f390cc6925abd6967d96dd9cdc10bd6c3a9a3a60863.js" integrity="sha256-zZFc8axkEB/BG385DMaSWr1pZ9lt2c3BC9bDqaOmCGM="></script>
+
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+
+  
+</head>
+
+<body>
+  <input type="checkbox" class="hidden" id="menu-control" />
+  <main class="container flex">
+    <aside class="book-menu">
+      
+  <nav>
+<h2 class="book-brand">
+  <a href="/"><span>Glaðsheimr</span>
+  </a>
+</h2>
+
+
+<div class="book-search">
+  <input type="text" id="book-search-input" placeholder="Search" aria-label="Search" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+
+
+
+
+
+  <ul>
+<li>
+<p><a href="/">Overview</a></p>
+</li>
+<li>
+<p><a href="/docs/research/">Research</a></p>
+<ul>
+<li><a href="/docs/research/orchestration/"class=active>Orchestration</a></li>
+</ul>
+</li>
+<li>
+<p>Tooling</p>
+<ul>
+<li><a href="https://github.com/Gladsheimr/mjolnir">Mjolnir</a></li>
+</ul>
+</li>
+<li>
+<p>Proof Of Concepts</p>
+<ul>
+<li><a href="https://github.com/Gladsheimr/csa-vatn">Vatn</a></li>
+</ul>
+</li>
+</ul>
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var menu=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(event){localStorage.setItem("menu.scrollTop",menu.scrollTop);});menu.scrollTop=localStorage.getItem("menu.scrollTop");})();</script>
+
+
+ 
+    </aside>
+
+    <div class="book-page">
+      <header class="book-header">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/svg/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <strong>Orchestration</strong>
+
+  <label for="toc-control">
+    <img src="/svg/toc.svg" class="book-icon" alt="Table of Contents" />
+  </label>
+</div>
+
+
+  
+    <input type="checkbox" class="hidden" id="toc-control" />
+    <aside class="hidden clearfix">
+      
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#hybrid-device-applications">Hybrid Device Applications</a>
+      <ul>
+        <li><a href="#concept">Concept</a></li>
+        <li><a href="#horizontal-scaling">Horizontal Scaling</a></li>
+        <li><a href="#vertical-scaling">Vertical Scaling</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+
+    </aside>
+  
+ 
+      </header>
+
+      
+<article class="markdown"><h1 id="hybrid-device-applications">Hybrid Device Applications</h1>
+<p>The ability to leverage FPGA, Microcontrollers and ASIC devices is that TinyML application can take advantage
+of each devices&rsquo; specialties.</p>
+<p>FPGAs can provide low latency (&lt;= 1ms), amazing connectivity (direct pin access) and potential low power consumption depending on the application. One the other hand micro-controller significantly reduce engineering time. (See other <a href="https://www.arrow.com/en/research-and-events/articles/fpga-vs-cpu-vs-gpu-vs-microcontroller">advantages of other device types</a>).</p>
+<h2 id="concept">Concept</h2>
+<p><em>Predicting water pouring in a room</em></p>
+<p>Collecting audio and classification can be currently done using TinyML and PDM devices (<a href="https://github.com/tensorflow/tensorflow/tree/master/tensorflow/lite/micro/examples/micro_speech">Tensorflow Lite Micro</a>). On the Arduino Nano Sense 33 there is a delay in the inference from the input to after the processing.</p>
+<p>Imagining a simple application deployed on an FPGA and Arduino device. Using orchestration we can see what services are live and even capture logs from devices for inspection.</p>
+<p>Known deployed services:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ mjl services
+
+NAME               TYPE            PROTOCOLS   AGE
+
+AudioClassifier    TinyFPGA        GPIO        2m0s
+MjlDriver          ArduinoBLE33    BLE         2m1s 
+
+</code></pre></div><p>Looking for devices:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ mjl devices
+
+NAME                     TYPE            PROTOCOLS   AGE
+AudioClassifier-a2a3fb   TinyFPGA        GPIO        2m0s
+MjlDriver-12e21b         ArduinoBLE33    BLE         2m1s 
+
+</code></pre></div><p>Inspecting devices:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ mjl inspect --device AudioClassifier-12e21b --proto GPIO --format pickle
+
+&gt; Discovering AudioClassifier-12e21b &gt; Found trough MjlDriver-12e21b 
+&gt; Connecting to MjlDriver-12e21b 
+&gt; Inspecting AudioClassifier-12e21b
+&gt; Found input and output stream at BLE service a369d1b3-fcf2-4159-84a8-a5751c7b657c
+   &gt; Input BLECharacteristic 347f9f7b-a71d-4d8d-b6dd-8c416270b329
+   &gt; Ouput BLECharacteristic ae2e723e-c297-4f13-8500-181d01bf2779
+Writing binary stream to inspections/AudioClassifier-12e21b/347f9f7b.pickle
+Writing binary stream to inspections/AudioClassifier-12e21b/ae2e723e.pickle
+</code></pre></div><h2 id="horizontal-scaling">Horizontal Scaling</h2>
+<p>With horizontal scaling the same application can be deployed over several devices. These devices can be placed in multiple locations:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ mjl devices
+
+NAME                          TYPE            PROTOCOLS   AGE
+AudioClassifier-8675c4e7      TinyFPGA        GPIO        2m0s
+MjlDriver-82f85197            ArduinoBLE33    BLE         2m1s 
+AudioClassifier-a369d1b3      TinyFPGA        GPIO        2m0s
+MjlDriver-9a9c1082            ArduinoBLE33    BLE         2m1s 
+AudioClassifier-129c0801      TinyFPGA        GPIO        2m0s
+MjlDriver-9a9c1082            ArduinoBLE33    BLE         2m1s 
+
+</code></pre></div><p>Inspection can aggregate across devices and get a quorum of results.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ mjl inspection --service AudioClassifier 
+
+AudioClassifier service aggregating results across <span style="color:#ae81ff">3</span> devices.
+
+Writing to inspections/AudioClassifier/out-9c0db0f2.pickle
+
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> pickle
+<span style="color:#f92672">from</span> mjl.aggregator <span style="color:#f92672">import</span> Aggregator
+
+filename <span style="color:#f92672">=</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">./inspections/AudioClassifier/out-9c0db0f2.pickle</span><span style="color:#e6db74">&#34;</span>
+
+results <span style="color:#f92672">=</span> open(filename,<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">wb</span><span style="color:#e6db74">&#39;</span>)
+
+results_tuples <span style="color:#f92672">=</span> pickle<span style="color:#f92672">.</span>load(results)
+
+<span style="color:#75715e"># (</span>
+<span style="color:#75715e">#    (1582405387.819107, 1, &#34;AudioClassifier-129c0801&#34;), </span>
+<span style="color:#75715e">#    (1582405387.819125, 1, &#34;AudioClassifier-a369d1b3&#34;), </span>
+<span style="color:#f92672">.</span><span style="color:#f92672">.</span><span style="color:#f92672">.</span>
+<span style="color:#75715e">#    (1582405387.8191419, 0, &#34;AudioClassifier-a369d1b3&#34;), </span>
+<span style="color:#75715e">#    (1582405387.819145, 1, &#34;AudioClassifier-8675c4e7&#34;)</span>
+<span style="color:#75715e"># )</span>
+
+quorum <span style="color:#f92672">=</span> Aggregator(quorum<span style="color:#f92672">=</span>True, window<span style="color:#f92672">=</span><span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">3ms</span><span style="color:#e6db74">&#34;</span>)<span style="color:#f92672">.</span>results(results_tuple)
+
+<span style="color:#75715e"># (</span>
+<span style="color:#75715e">#    (1582405387, 1)</span>
+<span style="color:#f92672">.</span><span style="color:#f92672">.</span><span style="color:#f92672">.</span>
+<span style="color:#75715e">#    (1582435389, 0), </span>
+<span style="color:#75715e">#    (1582435399, 1)</span>
+<span style="color:#75715e"># )</span>
+
+
+results<span style="color:#f92672">.</span>close()
+</code></pre></div><p>These results can be put together on a raspberry pi or even on a mobile device when in locale area. The <code>mjl</code> tool
+allows for development and testing. Testing can be done in this case with a laptop playing sample sounds randomly.
+The raw results allows for retraining the models and deploying them.</p>
+<h2 id="vertical-scaling">Vertical Scaling</h2>
+<p>Vertical scaling would be the process of letting multiple devices run the same application by distributing processing. For example:
+having devices request resources and processing from each other over BLE or Direct pin access.</p>
+</article>
+ 
+
+      <footer class="book-footer">
+        
+  <div class="flex justify-between">
+
+
+
+  <div>
+    
+    <a class="flex align-center" href="https://github.com/Gladsheimr/docs/commit/dbc8d5396b1ada8525187f7d60f083fdd83af7ce" title='Last modified by Kartik Thakore | Feb 22, 2020' target="_blank" rel="noopener">
+      <img src="/svg/calendar.svg" class="book-icon" alt="Calendar" />
+      <span>Feb 22, 2020</span>
+    </a>
+  </div>
+
+
+
+  <div>
+    <a class="flex align-center" href="https://github.com/Gladsheimr/docs/edit/master/exampleSite/content/docs/research/orchestration.md" target="_blank" rel="noopener">
+      <img src="/svg/edit.svg" class="book-icon" alt="Edit" />
+      <span>Edit this page</span>
+    </a>
+  </div>
+
+</div>
+
+ 
+        
+  
+  <div class="book-comments">
+
+</div>
+  
+ 
+      </footer>
+      
+    </div>
+
+    
+    <aside class="book-toc">
+      
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#hybrid-device-applications">Hybrid Device Applications</a>
+      <ul>
+        <li><a href="#concept">Concept</a></li>
+        <li><a href="#horizontal-scaling">Horizontal Scaling</a></li>
+        <li><a href="#vertical-scaling">Vertical Scaling</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+ 
+    </aside>
+    
+  </main>
+
+  
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
