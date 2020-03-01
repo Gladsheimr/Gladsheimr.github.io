@@ -8,6 +8,12 @@
   </url>
   
   <url>
+    <loc>/docs/proof_of_concepts/</loc>
+    <lastmod>2020-03-01T15:55:44-08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>/categories/</loc>
   </url>
   
@@ -28,6 +34,11 @@
   <url>
     <loc>/docs/proof_of_concepts/vant/</loc>
     <lastmod>2020-02-13T21:16:35-08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/docs/proof_of_concepts/audio-fpga/</loc>
+    <lastmod>2020-03-01T15:55:44-08:00</lastmod>
   </url>
   
   <url>

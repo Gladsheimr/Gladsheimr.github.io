@@ -31,5 +31,15 @@ Concept Predicting water pouring in a room
 Collecting audio and classification can be currently done using TinyML and PDM devices (Tensorflow Lite Micro).</description>
     </item>
     
+    <item>
+      <title>Proof of Concepts</title>
+      <link>/docs/proof_of_concepts/audio-fpga/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/docs/proof_of_concepts/audio-fpga/</guid>
+      <description>Audio, Arduino and FPGA In this proof of concept we want to showcase how multiple devices can be used to build the an application (detect keywords in sounds).
+Overview The application will replicate another TinyML proof of concept that was demonstrated in Tensorflow Lite Micro. The PoC infers command words on PDM (Pulse Density Modulation) signals. The code and documentation for this application is available on the Tensorflow github repo.</description>
+    </item>
+    
   </channel>
 </rss>
